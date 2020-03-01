@@ -71,6 +71,20 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>Montserrat_Black.ttf</string>
+		<string>Montserrat_Bold.ttf</string>
+		<string>Montserrat_ExtraBold.ttf</string>
+		<string>Montserrat_ExtraLight.ttf</string>
+		<string>Montserrat_Light.ttf</string>
+		<string>Montserrat_Medium.ttf</string>
+		<string>Montserrat_Regular.ttf</string>
+		<string>Montserrat_SemiBold.ttf</string>
+		<string>Montserrat_Thin.ttf</string>
+		<string>OpenSans_Bold.ttf</string>
+		<string>OpenSans_ExtraBold.ttf</string>
+		<string>OpenSans_Light.ttf</string>
+		<string>OpenSans_Regular.ttf</string>
+		<string>OpenSans_SemiBold.ttf</string>
 	</array>
 </dict>
 </plist>

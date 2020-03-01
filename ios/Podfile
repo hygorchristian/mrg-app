@@ -34,7 +34,6 @@ target 'app_mrg' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'RNCMaskedView', :path => '../node_modules/@react-native-community/masked-view'
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
@@ -43,6 +42,16 @@ target 'app_mrg' do
   pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
+  pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
+
+  pod 'RNScreens', :path => '../node_modules/react-native-screens'
+
+  pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
+
+  pod 'RNFBFirestore', :path => '../node_modules/@react-native-firebase/firestore'
 
   target 'app_mrgTests' do
     inherit! :search_paths

@@ -13,7 +13,7 @@ function ItemPodcast({ item }) {
 
 
   const handleDetails = () => {
-    navigation.navigate('PodcastDetails')
+    navigation.navigate('PodcastDetails', { id: item.uid })
   }
 
   const descriptionNoTags = striptags(item.description)

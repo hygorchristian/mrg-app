@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Container, Icon, Image, ImageGradient, Title, Info, Number, Percentage, Meta, Row, RoundButton, Description, Label, Content, Actions, PlayButton, Progress, HeaderButton, HeaderContainer, HeaderExtraSpace, HeaderGradient} from './styles';
 import Player from "~/components/Player";
 import BottomTabs from "~/components/BottomTabs";
 import { useNavigation } from "react-navigation-hooks";
+import { getPodcast } from '~/services/firebase'
+import striptags from "striptags";
+const Html5Entities = require('html-entities').Html5Entities;
+
 
 function Header() {
   const { pop } = useNavigation();
@@ -29,14 +33,32 @@ function Header() {
 }
 
 function PodcastDetails() {
+  const [podcast, setPodcast] = useState(null)
+
+  const { state: { params } } = useNavigation();
+  const {id} = params;
+
+  console.log({id})
+
+  useEffect(() => {
+    getPodcast(id, item => {
+      setPodcast(item)
+    })
+  }, [])
+
+  if(!podcast)return null
+
+  const descriptionNoTags = striptags(podcast.description)
+  const description = Html5Entities.decode(descriptionNoTags).substring(0, 100)
+
   return (
     <Container>
       <Header />
       <Content>
-        <Image source={{ uri: 'https://www.matandorobosgigantes.com/wp-content/uploads/2019/11/Hollow_Knight_podcast_MRG.jpg' }}>
+        <Image source={{ uri: podcast.cover }}>
           <ImageGradient />
-          <Number>MRG 477</Number>
-          <Title>Hollow Knight, nosso guerreirinho oco!</Title>
+          <Number>{podcast.number}</Number>
+          <Title>{podcast.title} </Title>
         </Image>
         <Info>
           <Row>
@@ -51,18 +73,15 @@ function PodcastDetails() {
             </PlayButton>
             <Actions>
               <RoundButton>
-                <Icon name="share" />
+                <Icon name="share" size={24} />
               </RoundButton>
               <RoundButton>
-                <Icon name="download" />
+                <Icon name="download" size={20} />
               </RoundButton>
             </Actions>
           </Row>
           <Description>
-            Hollow Knight, sucesso indie após uma espetacular campanha de financiamento coletivo, desafia os dedos ágeis dos caveleiros-inseto Affonso Solano, Beto Estrada e Didi Braguinha neste podcast Matando Robôs Gigantes, onde o gênero metroidvania e alguns de seus maiores representantes do mundo dos videogames é debatido! Ouça, compartilhe e participe da discussão através das nossas redes sociais – incluindo o Twitter do MRG!
-          </Description>
-          <Description>
-            Hollow Knight, sucesso indie após uma espetacular campanha de financiamento coletivo, desafia os dedos ágeis dos caveleiros-inseto Affonso Solano, Beto Estrada e Didi Braguinha neste podcast Matando Robôs Gigantes, onde o gênero metroidvania e alguns de seus maiores representantes do mundo dos videogames é debatido! Ouça, compartilhe e participe da discussão através das nossas redes sociais – incluindo o Twitter do MRG!
+            {`${description}...`}
           </Description>
         </Info>
       </Content>
