@@ -38,8 +38,6 @@ function PodcastDetails() {
   const { state: { params } } = useNavigation();
   const {id} = params;
 
-  console.log({id})
-
   useEffect(() => {
     getPodcast(id, item => {
       setPodcast(item)

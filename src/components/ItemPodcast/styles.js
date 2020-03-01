@@ -106,7 +106,7 @@ export const Indicator = styled.View`
 `;
 
 export const Percentage = styled.View`
-  width: 60%;
+  width: ${({ width }) => width}%;
   height: 100%;
   background-color: ${colors.primary};
 `;

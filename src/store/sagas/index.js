@@ -1,8 +1,17 @@
 import { all, takeLatest } from 'redux-saga/effects';
 
-// import { AuthTypes } from '../ducks/auth';
-// import { loadAuth } from './auth';
+import { PlayerTypes } from '../ducks/player';
+import { init, setPodcast, next, pause, play, prev, reset } from './player';
 
 export default function*() {
-  // return yield all([takeLatest(AuthTypes.LOAD_AUTH_REQUEST, loadAuth)]);
+  return yield all([
+    init(),
+
+    takeLatest(PlayerTypes.SET_TRACK, setPodcast),
+    takeLatest(PlayerTypes.PLAY, play),
+    takeLatest(PlayerTypes.PAUSE, pause),
+    takeLatest(PlayerTypes.PREV, prev),
+    takeLatest(PlayerTypes.NEXT, next),
+    takeLatest(PlayerTypes.RESET, reset),
+  ]);
 }

@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux';
 function Home() {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
   const podcasts = useSelector(state => state.podcasts.data);
+  const { current, playing } = useSelector(state => state.player);
 
   const handleMenu = () => {
     setMenuOpen(!isMenuOpen);

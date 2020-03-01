@@ -25,7 +25,7 @@ export const Indicator = styled.View`
 `;
 
 export const Percentage = styled.View`
-  width: 56%;
+  width: ${({ width }) => width}%;
   height: 100%;
   background-color: ${colors.primary};
 `;

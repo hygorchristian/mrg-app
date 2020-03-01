@@ -30,13 +30,10 @@ const getAllFiles = async () => {
   icons += 'export default icons;';
 
   const file = path.resolve(dir, 'index.js');
-  console.log(file);
   fs.writeFile(file, icons, err => {
     if (err) {
       console.error('Falha ao salvar o arquivo: ' + err);
     }
-
-    console.log('Icones linkados com sucesso!');
   });
 };
 

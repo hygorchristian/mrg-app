@@ -1,30 +1,60 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Container, Percentage, Number, Info, Indicator, Title, Image, Icon, Button, Gradient } from './styles';
 import { useNavigation } from "react-navigation-hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { PlayerActions } from "~/store/ducks/player";
+import { useTrackPlayerProgress } from 'react-native-track-player';
+import { PodcastsActions } from "~/store/ducks/podcasts";
+
 
 function Player() {
   const navigation = useNavigation()
+  const dispatch = useDispatch()
+  const { position, duration } = useTrackPlayerProgress()
+  const { current, playing } = useSelector(state => state.player)
+
 
   const handlePlayerDetails = () => {
     navigation.navigate('PlayerScreen')
   }
 
+  const handlePlay = () => {
+    dispatch(PlayerActions.play())
+  }
+
+  const handlePause = () => {
+    dispatch(PlayerActions.pause())
+  }
+
+  useEffect(() => {
+    if(current){
+      dispatch(PodcastsActions.setPodcastPosition(current.id, position, duration))
+    }
+  }, [position])
+
+
   return (
     <Container onPress={handlePlayerDetails}>
       <Indicator>
-        <Percentage />
+        <Percentage width={position / duration * 100} />
       </Indicator>
-      <Image source={{ uri: 'https://www.matandorobosgigantes.com/wp-content/uploads/2020/01/afonso-3d-com-papa-francisco-MRG-podcast.jpg' }}>
+      <Image source={{ uri: current && current.artwork }}>
         <Gradient />
       </Image>
       <Info>
-        <Number>MRG 45</Number>
-        <Title>A Voz do Robô dá um tapa no Papa!</Title>
+        <Number>{current && current.number}</Number>
+        <Title>{current && current.onlyTitle}</Title>
       </Info>
-      <Button>
-        <Icon name="pause" size={30} />
-      </Button>
+      {playing ? (
+        <Button onPress={handlePause}>
+          <Icon name="pause" size={30} />
+        </Button>
+      ): (
+        <Button onPress={handlePlay}>
+          <Icon name="play" size={30} />
+        </Button>
+      )}
     </Container>
   )
 }

@@ -10,7 +10,7 @@ import sagas from './sagas';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: [],
+  whitelist: ['podcasts'],
 };
 
 const middlewares = [];
@@ -22,10 +22,7 @@ const sagaMiddleware = createSagaMiddleware({ sagaMonitor });
 middlewares.push(sagaMiddleware);
 
 const composer = __DEV__
-  ? compose(
-    applyMiddleware(...middlewares),
-    console.tron.createEnhancer(),
-  )
+  ? compose(applyMiddleware(...middlewares), console.tron.createEnhancer())
   : compose(applyMiddleware(...middlewares));
 
 const persistedReducer = persistReducer(persistConfig, reducers);
