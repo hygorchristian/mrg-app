@@ -15,6 +15,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/masked-view": "^0.1.7",
     "axios": "^0.19.2",
     "date-fns": "^2.10.0",
     "lodash": "^4.17.15",
@@ -25,6 +26,8 @@
     "react-native-iphone-x-helper": "^1.2.1",
     "react-native-paper": "^3.6.0",
     "react-native-reanimated": "^1.7.0",
+    "react-native-safe-area-context": "^0.7.3",
+    "react-native-screens": "^2.2.0",
     "react-native-vector-icons": "^6.6.0",
     "react-navigation": "^4.2.2",
     "react-navigation-hooks": "^1.1.0",
@@ -45,11 +48,15 @@
   "devDependencies": {
     "@babel/core": "^7.8.6",
     "@babel/runtime": "^7.8.4",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "@react-native-community/eslint-config": "^0.0.7",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^25.1.0",
     "babel-plugin-root-import": "^6.4.1",
     "babel-plugin-transform-remove-console": "^6.9.4",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.10.0",
@@ -59,15 +66,11 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-native": "^3.8.1",
+    "husky": "^4.2.3",
     "jest": "^25.1.0",
     "metro-react-native-babel-preset": "^0.58.0",
     "prettier": "^1.19.1",
-    "react-test-renderer": "16.9.0",
-    "husky": "^4.2.3",
-    "commitizen": "^4.0.3",
-    "cz-conventional-changelog": "^3.1.0",
-    "@commitlint/cli": "^8.3.5",
-    "@commitlint/config-conventional": "^8.3.4"
+    "react-test-renderer": "16.9.0"
   },
   "jest": {
     "preset": "react-native"

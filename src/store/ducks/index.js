@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import { AuthReducer as auth } from './auth';
+import { PodcastsReducer as podcasts } from './podcasts';
 
 export default combineReducers({
-  auth,
+  podcasts,
 });
