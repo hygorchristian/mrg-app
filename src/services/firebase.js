@@ -5,7 +5,7 @@ const testes = firestore().collection('testes');
 
 export const getPodcasts = callback => {
   // podcasts.orderBy('number').onSnapshot(snapshot => {
-  testes.orderBy('number').onSnapshot(snapshot => {
+  podcasts.orderBy('number').onSnapshot(snapshot => {
     const dados = [];
 
     snapshot.forEach(doc => {
@@ -18,7 +18,7 @@ export const getPodcasts = callback => {
 
 export const getPodcast = (id, callback) => {
   // podcasts
-  testes
+  podcasts
     .doc(id)
     .get()
     .then(snapshot => {

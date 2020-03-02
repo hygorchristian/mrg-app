@@ -1,21 +1,23 @@
 import TrackPlayer from 'react-native-track-player';
-import store from '../store';
+import { store } from '../store';
 import { PlayerActions } from '../store/ducks/player';
 
 export default async () => {
-  TrackPlayer.addEventListener('remote-play', () => {
+  await TrackPlayer.addEventListener('remote-play', () => {
     store.dispatch(PlayerActions.play());
   });
-  TrackPlayer.addEventListener('remote-pause', () => {
+  await TrackPlayer.addEventListener('remote-pause', async () => {
     store.dispatch(PlayerActions.pause());
   });
-  TrackPlayer.addEventListener('remote-next', () => {
-    store.dispatch(PlayerActions.next());
+  await TrackPlayer.addEventListener('remote-jump-forward', async event => {
+    let position = await TrackPlayer.getPosition();
+    let newPosition = position + event.interval;
+    await TrackPlayer.seekTo(newPosition);
   });
-  TrackPlayer.addEventListener('remote-previous', () => {
-    store.dispatch(PlayerActions.prev());
-  });
-  TrackPlayer.addEventListener('remote-stop', () => {
-    store.dispatch(PlayerActions.reset());
+
+  await TrackPlayer.addEventListener('remote-jump-backward', async event => {
+    let position = await TrackPlayer.getPosition();
+    let newPosition = position > 9 ? position - event.interval : 0;
+    await TrackPlayer.seekTo(newPosition);
   });
 };

@@ -25,22 +25,29 @@ function* trackChanged() {
 }
 
 export function* init() {
-  yield call(TrackPlayer.setupPlayer);
+  yield call(TrackPlayer.setupPlayer, {
+    maxBuffer: 120,
+    backBuffer: 50,
+  });
 
   TrackPlayer.updateOptions({
+    jumpInterval: 10,
     capabilities: [
       TrackPlayer.CAPABILITY_PLAY,
       TrackPlayer.CAPABILITY_PAUSE,
-      TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
-      TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+      // TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+      // TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
       TrackPlayer.CAPABILITY_STOP,
+      TrackPlayer.CAPABILITY_JUMP_FORWARD,
+      TrackPlayer.CAPABILITY_JUMP_BACKWARD,
     ],
     notificationCapabilities: [
       TrackPlayer.CAPABILITY_PLAY,
       TrackPlayer.CAPABILITY_PAUSE,
-      TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
-      TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
-      TrackPlayer.CAPABILITY_STOP,
+      // TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+      // TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+      TrackPlayer.CAPABILITY_JUMP_FORWARD,
+      TrackPlayer.CAPABILITY_JUMP_BACKWARD,
     ],
     compactCapabilities: [
       TrackPlayer.CAPABILITY_PLAY,

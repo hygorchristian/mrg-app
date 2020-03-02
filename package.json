@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.7",
+    "@react-native-community/slider": "^2.0.8",
     "@react-native-firebase/app": "^6.3.4",
     "@react-native-firebase/firestore": "^6.3.4",
     "axios": "^0.19.2",

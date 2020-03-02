@@ -8,6 +8,7 @@ import colors from '~/assets/colors';
 import { SCREEN_WIDTH } from '~/utils/dimensions';
 import OpenSans from '~/components/OpenSans';
 import Montserrat from '~/components/Montserrat';
+import SliderView from '@react-native-community/slider';
 
 export const Container = styled.View`
   height: 100%;
@@ -47,7 +48,6 @@ export const MIcon = styled(MDIcon).attrs({})`
 
 export const Content = styled.View`
   margin-top: 60px;
-  padding-horizontal: 30px;
 `;
 
 export const Number = styled(OpenSans).attrs({
@@ -56,6 +56,7 @@ export const Number = styled(OpenSans).attrs({
 })`
   font-size: 14px;
   color: ${colors.primary};
+  padding-horizontal: 30px;
 `;
 
 export const Title = styled(OpenSans).attrs({
@@ -63,18 +64,25 @@ export const Title = styled(OpenSans).attrs({
   shadow: true,
 })`
   font-size: 16px;
+  padding-horizontal: 30px;
 `;
 
-export const Slider = styled.View`
-  width: 100%;
-  height: 4px;
-  background-color: ${colors.inactive};
+export const Slider = styled(SliderView).attrs({
+  minimumValue: 0,
+  maximumValue: 100,
+  minimumTrackTintColor: colors.textPrimary,
+  maximumTrackTintColor: colors.textSecondary,
+  thumbTintColor: colors.textPrimary,
+})`
+  height: 40px;
   margin-top: 24px;
   border-radius: 2px;
+  width: ${SCREEN_WIDTH - 24};
+  align-self: center;
 `;
 
 export const Percentage = styled.View`
-  width: 30%;
+  width: ${({ width }) => width || 0}%;
   height: 4px;
   border-radius: 2px;
   background-color: white;
@@ -85,6 +93,7 @@ export const TimeView = styled.View`
   margin-top: 4px;
   align-items: center;
   justify-content: space-between;
+  padding-horizontal: 30px;
 `;
 
 export const TimeText = styled(Montserrat).attrs({
@@ -100,9 +109,12 @@ export const Controls = styled.View`
   justify-content: space-between;
   height: 60px;
   margin-top: 8px;
+  padding-horizontal: 30px;
 `;
 
-export const Button = styled.TouchableOpacity`
+export const Button = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.7,
+})`
   height: ${({ size }) => (size ? size : 48)};
   width: ${({ size }) => (size ? size : 48)};
   border-radius: ${({ size }) => (size ? size / 2 : 24)};
@@ -114,6 +126,7 @@ export const Label = styled(Montserrat).attrs({
   weight: 'semibold',
 })`
   font-size: 14px;
+  color: ${({ active }) => (active ? colors.primary : colors.textPrimary)};
 `;
 
 /* HEADER */
