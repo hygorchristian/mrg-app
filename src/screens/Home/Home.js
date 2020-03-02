@@ -93,7 +93,7 @@ function Home() {
           keyExtractor={item => item.uid}
         />
         <Player />
-        <BottomTabs />
+        {/*<BottomTabs />*/}
       </Content>
       <Modal visible={filterMenu} onDismiss={() => setFilterMenu(false)}>
         <FilterMenu>

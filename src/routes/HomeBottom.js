@@ -4,92 +4,56 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import TabIcon from '~/components/TabIcon';
 
-import Mapa from '~/screens/Mapa';
-import Ongs from '~/screens/Ongs';
 import BottomTabs from '~/components/BottomTabs';
-import Postagens from '~/screens/Postagens';
-import NovaPostagem from '~/screens/NovaPostagem';
-import Parceiros from '~/screens/Parceiros';
-import { store } from '~/store';
-import { showNotAuthMessage } from '~/utils/snackbar';
+import Home from '~/screens/Home';
+import Downloads from '~/screens/Downloads';
+import Search from '~/screens/Search';
 
-const ListaIcon = ({ tintColor }) => (
-  <TabIcon name="paw" tintColor={tintColor} type="fa" />
+const HomeIcon = ({ tintColor }) => (
+  <TabIcon name="home" tintColor={tintColor} type="material" />
 );
 
-const MapaIcon = ({ tintColor }) => (
-  <TabIcon name="map-marker-alt" tintColor={tintColor} type="fa" />
+const SearchIcon = ({ tintColor }) => (
+  <TabIcon name="magnify" tintColor={tintColor} type="material" />
 );
 
-const OngsIcon = ({ tintColor }) => (
-  <TabIcon name="hand-holding-heart" tintColor={tintColor} type="fa" />
-);
-
-const ParceirosIcon = ({ tintColor }) => (
-  <TabIcon name="handshake" solid tintColor={tintColor} type="fa" />
-);
-
-const NovoItemIcon = ({ tintColor }) => (
-  <TabIcon name="add" tintColor={tintColor} type="rounded" />
+const DownloadsIcon = ({ tintColor }) => (
+  <TabIcon name="cloud-download" tintColor={tintColor} type="material" />
 );
 
 const HomeBottom = createBottomTabNavigator(
   {
-    Posts: {
-      screen: Postagens,
+    Home: {
+      screen: Home,
       navigationOptions: {
         header: null,
-        tabBarIcon: ListaIcon,
+        tabBarIcon: HomeIcon,
+        tabBarLabel: 'Home',
       },
     },
-    Mapa: {
-      screen: Mapa,
-      navigationOptions: {
-        header: null,
-        tabBarIcon: MapaIcon,
-      },
-    },
-    NovaPostagems: {
-      screen: NovaPostagem,
+    SearchScreen: {
+      screen: Search,
       navigationOptions: ({ navigation }) => ({
         header: null,
-        tabBarIcon: NovoItemIcon,
+        tabBarLabel: 'Buscar',
+        tabBarIcon: SearchIcon,
         tabBarOnPress: ({ navigation }) => {
-          const state = store.getState();
-          const isAuth = state.auth.isAuth;
-          if (isAuth) {
-            navigation.navigate('NovaPostagem');
-          } else {
-            showNotAuthMessage(() => {
-              navigation.navigate('Login');
-            });
-          }
+          navigation.navigate('Search');
         },
+        label: 'Busca',
       }),
     },
-    Ongs: {
-      screen: Ongs,
+    Downloads: {
+      screen: Downloads,
       navigationOptions: {
         header: null,
-        tabBarIcon: OngsIcon,
-      },
-    },
-    Parceiros: {
-      screen: Parceiros,
-      navigationOptions: {
-        header: null,
-        tabBarIcon: ParceirosIcon,
-        tabBarOnPress: ({ navigation }) => {
-          navigation.navigate('SobreParcerias');
-        },
+        tabBarIcon: DownloadsIcon,
+        tabBarLabel: 'Downloads',
       },
     },
   },
   {
     tabBarComponent: BottomTabs,
-    tabBarOptions: {
-      showLabel: false,
-    },
   }
 );
 

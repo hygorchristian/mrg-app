@@ -1,5 +1,6 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
+import HomeBottom from './HomeBottom';
 import Home from '~/screens/Home';
 import Downloads from '~/screens/Downloads';
 import Search from '~/screens/Search';
@@ -8,25 +9,9 @@ import PodcastDetails from '~/screens/PodcastDetails';
 import PlayerScreen from '~/screens/PlayerScreen';
 import Splash from '~/screens/Splash';
 
-// const Stack = createStackNavigator(
-//   {
-//     // Screen: {
-//     //   screen: Screen,
-//     //   navigationOptions: {
-//     //     header: null,
-//     //     gesturesEnabled: false,
-//     //   },
-//     // },
-//   },
-//   {
-//     // mode: 'modal',
-//     // headerMode: 'none',
-//   }
-// );
-
 const MainStack = createStackNavigator({
-  Main: {
-    screen: Home,
+  HomeBottom: {
+    screen: HomeBottom,
     navigationOptions: {
       header: null,
       gesturesEnabled: false,
@@ -48,6 +33,29 @@ const MainStack = createStackNavigator({
   },
 });
 
+export const MainSearchStack = createStackNavigator(
+  {
+    MainStack: {
+      screen: MainStack,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false,
+      },
+    },
+    Search: {
+      screen: Search,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false,
+      },
+    },
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+  }
+);
+
 const Routes = createSwitchNavigator({
   Splash: {
     screen: Splash,
@@ -56,8 +64,8 @@ const Routes = createSwitchNavigator({
       gesturesEnabled: false,
     },
   },
-  MainStack: {
-    screen: MainStack,
+  MainSearchStack: {
+    screen: MainSearchStack,
     navigationOptions: {
       header: null,
       gesturesEnabled: false,

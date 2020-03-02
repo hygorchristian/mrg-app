@@ -1,11 +1,12 @@
 import styled from 'styled-components/native';
 import { BottomTabBar } from 'react-navigation-tabs';
+import colors from '~/assets/colors';
 
 export const Container = styled(BottomTabBar).attrs({
-  activeTintColor: '#ffffff',
-  inactiveTintColor: 'rgba(255,255,255,0.4)',
-  pressColor: '#7f8c8d',
+  activeTintColor: colors.textPrimary,
+  inactiveTintColor: colors.inactive,
+  pressColor: colors.primary,
 })`
-  background-color: #27998f;
-  height: 55px;
+  background-color: ${colors.paper};
+  height: 56px;
 `;

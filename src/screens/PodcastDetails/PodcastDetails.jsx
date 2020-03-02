@@ -38,17 +38,18 @@ function Header() {
 }
 
 function PodcastDetails() {
+  const { state: { params } } = useNavigation();
+  const {id} = params;
+
   const [podcast, setPodcast] = useState(null)
   const [track, setTrack] = useState(null)
   const {current, playing} = useSelector(state => state.player)
   const podcastsPosition = useSelector(state => state.podcasts.podcastsPosition)
   const dispatch = useDispatch()
 
-  const { state: { params } } = useNavigation();
-  const {id} = params;
 
   const handlePlay = () => {
-    if(current && current.id === podcast   .uid){
+    if(current && current.id === podcast.uid){
       dispatch(PlayerActions.play())
       return
     }
@@ -104,7 +105,7 @@ function PodcastDetails() {
             {current && current.id === podcast.uid && playing ? (
               <PlayButton  onPress={handlePause}>
                 <Label>Pause</Label>
-              </PlayButton>
+             </PlayButton>
             ): (
               <PlayButton  onPress={handlePlay}>
                 <Label>Play</Label>
@@ -125,7 +126,6 @@ function PodcastDetails() {
         </Info>
       </Content>
       <Player />
-      <BottomTabs />
     </Container>
   )
 }
