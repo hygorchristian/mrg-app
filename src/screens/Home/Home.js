@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from 'react-native-paper';
 import colors from '~/assets/colors';
 import { AppActions } from '~/store/ducks/app';
+import { StatusBar } from 'react-native';
 
 function Home() {
   const dispatch = useDispatch();
@@ -73,6 +74,8 @@ function Home() {
   useEffect(() => {
     const ordered = lodash.orderBy(filtered, 'number', order);
     setFiltered(ordered);
+    StatusBar.setBarStyle('light-content');
+    StatusBar.setBackgroundColor('#000000');
   }, [order]);
 
   return (

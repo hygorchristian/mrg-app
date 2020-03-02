@@ -3,10 +3,11 @@ import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 import { getPodcasts } from '~/services/firebase';
 
 
-import { Container } from './styles';
+import { Container, Text, Loading, TextContainer } from './styles';
 import { useNavigation } from "react-navigation-hooks";
 import { PodcastsActions } from "~/store/ducks/podcasts";
 import { useDispatch } from "react-redux";
+import { StatusBar } from "react-native";
 
 function Splash() {
   const navigation = useNavigation()
@@ -37,14 +38,24 @@ function Splash() {
   }
 
   useEffect(() => {
-    checkPermissions()
-    fetchPodcasts()
-    setTimeout(() => {
-      navigation.navigate('MainStack')
-    }, 1000)
+
+    StatusBar.setBarStyle('light-content');
+    StatusBar.setBackgroundColor('#000000');
+    // checkPermissions()
+    // fetchPodcasts()
+    // setTimeout(() => {
+    //   navigation.navigate('MainStack')
+    // }, 1000)
   }, [])
 
-  return <Container />
+  return (
+    <Container>
+      <TextContainer>
+        <Text>MRG</Text>
+      </TextContainer>
+      <Loading />
+    </Container>
+  )
 }
 
 export default Splash;

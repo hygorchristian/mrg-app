@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigation } from 'react-navigation-hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -29,9 +29,9 @@ import {
   TimeText,
   TimeView,
 } from './styles';
-import Player from '~/components/Player';
 import { PlayerActions } from '~/store/ducks/player';
 import { formatSeconds } from '~/utils/time';
+import { StatusBar } from 'react-native';
 
 function Header() {
   const { pop } = useNavigation();
@@ -116,6 +116,11 @@ function PlayerScreen() {
       set(1);
     }
   };
+
+  useEffect(() => {
+    StatusBar.setBarStyle('light-content');
+    StatusBar.setBackgroundColor('#000000');
+  }, []);
 
   return (
     <Container>

@@ -11,9 +11,6 @@ import colors from '~/assets/colors';
 
 console.disableYellowBox = true;
 
-StatusBar.setBarStyle('light-content');
-StatusBar.setBackgroundColor('#000000');
-
 const theme = {
   ...DefaultTheme,
   roundness: 2,
