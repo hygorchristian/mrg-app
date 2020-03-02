@@ -41,11 +41,11 @@ function Splash() {
 
     StatusBar.setBarStyle('light-content');
     StatusBar.setBackgroundColor('#000000');
-    // checkPermissions()
-    // fetchPodcasts()
-    // setTimeout(() => {
-    //   navigation.navigate('MainStack')
-    // }, 1000)
+    checkPermissions()
+    fetchPodcasts()
+    setTimeout(() => {
+      navigation.navigate('MainStack')
+    }, 1000)
   }, [])
 
   return (

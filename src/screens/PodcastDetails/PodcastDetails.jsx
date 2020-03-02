@@ -6,6 +6,11 @@ import BottomTabs from "~/components/BottomTabs";
 import { useNavigation } from "react-navigation-hooks";
 import { getPodcast } from '~/services/firebase'
 import striptags from "striptags";
+import { formatDMY, getLastMin } from "~/utils/time";
+import { Controllers, Indicator } from "~/components/ItemPodcast/styles";
+import { useDispatch, useSelector } from "react-redux";
+import colors from "~/assets/colors";
+import { PlayerActions } from "~/store/ducks/player";
 const Html5Entities = require('html-entities').Html5Entities;
 
 
@@ -34,20 +39,47 @@ function Header() {
 
 function PodcastDetails() {
   const [podcast, setPodcast] = useState(null)
+  const [track, setTrack] = useState(null)
+  const {current, playing} = useSelector(state => state.player)
+  const podcastsPosition = useSelector(state => state.podcasts.podcastsPosition)
+  const dispatch = useDispatch()
 
   const { state: { params } } = useNavigation();
   const {id} = params;
 
+  const handlePlay = () => {
+    if(current && current.id === podcast   .uid){
+      dispatch(PlayerActions.play())
+      return
+    }
+
+    const track = {
+      id: podcast.uid,
+      url: podcast.file.url,
+      title: `${podcast.number} - ${podcast.title}`,
+      onlyTitle: `${podcast.title}`,
+      number: podcast.number,
+      artist: 'Matando Robôs Gigantes',
+      artwork: podcast.cover
+    }
+
+    dispatch(PlayerActions.setTrack(track))
+  }
+
+  const handlePause = () => {
+    dispatch(PlayerActions.pause())
+  }
+
+
   useEffect(() => {
     getPodcast(id, item => {
+      const t = podcastsPosition[item.uid]
+      setTrack(t)
       setPodcast(item)
     })
   }, [])
 
   if(!podcast)return null
-
-  const descriptionNoTags = striptags(podcast.description)
-  const description = Html5Entities.decode(descriptionNoTags).substring(0, 100)
 
   return (
     <Container>
@@ -60,15 +92,24 @@ function PodcastDetails() {
         </Image>
         <Info>
           <Row>
-            <Meta>8 NOV 2019  •  32 MIN RESTANTE(S)</Meta>
-            <Progress>
-              <Percentage />
-            </Progress>
+            {track && <Meta>{formatDMY(podcast.date)}  •  {getLastMin(track.duration, track.position)}  </Meta>}
+            {!track && <Meta>{formatDMY(podcast.date)}  •  NÃO TOCADO </Meta>}
+            {track && (
+              <Progress>
+                <Percentage width={track.position / track.duration * 100} />
+              </Progress>
+            )}
           </Row>
           <Row style={{ marginTop: 24 }}>
-            <PlayButton>
-              <Label>Play</Label>
-            </PlayButton>
+            {current && current.id === podcast.uid && playing ? (
+              <PlayButton  onPress={handlePause}>
+                <Label>Pause</Label>
+              </PlayButton>
+            ): (
+              <PlayButton  onPress={handlePlay}>
+                <Label>Play</Label>
+              </PlayButton>
+            )}
             <Actions>
               <RoundButton>
                 <Icon name="share" size={24} />
@@ -79,7 +120,7 @@ function PodcastDetails() {
             </Actions>
           </Row>
           <Description>
-            {`${description}...`}
+            {podcast.description}
           </Description>
         </Info>
       </Content>

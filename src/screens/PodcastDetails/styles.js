@@ -74,7 +74,7 @@ export const Progress = styled.View`
 `;
 
 export const Percentage = styled.View`
-  width: 45%;
+  width: ${({ width }) => width}%;
   height: 4px;
   border-radius: 2px;
   background-color: ${colors.primary};

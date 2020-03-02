@@ -36,17 +36,19 @@ function Player() {
   }, [position])
 
 
+  if(!current)return false
+
   return (
     <Container onPress={handlePlayerDetails}>
       <Indicator>
         <Percentage width={position / duration * 100} />
       </Indicator>
-      <Image source={{ uri: current && current.artwork }}>
+      <Image source={{ uri: current.artwork }}>
         <Gradient />
       </Image>
       <Info>
-        <Number>{current && current.number}</Number>
-        <Title>{current && current.onlyTitle}</Title>
+        <Number>{current.number}</Number>
+        <Title>{current.onlyTitle}</Title>
       </Info>
       {playing ? (
         <Button onPress={handlePause}>
