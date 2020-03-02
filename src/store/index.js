@@ -10,7 +10,7 @@ import sagas from './sagas';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['podcasts'],
+  whitelist: ['podcasts', 'app'],
 };
 
 const middlewares = [];

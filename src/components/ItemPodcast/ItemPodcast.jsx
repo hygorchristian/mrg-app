@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useNavigation } from 'react-navigation-hooks';
 import striptags from "striptags";
 const Html5Entities = require('html-entities').Html5Entities;
@@ -7,12 +7,13 @@ import { Container, Touch,PlayButton, Icon, Image, Description, Title, Controlle
 import colors from "~/assets/colors";
 import { useDispatch, useSelector } from "react-redux";
 import { PlayerActions } from "~/store/ducks/player";
+import { getLastMin, formatDMY } from "~/utils/time";
 
 function ItemPodcast({ item }) {
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const {current, playing} = useSelector(state => state.player)
-  const {podcastsPosition} = useSelector(state => state.podcasts)
+  const track = useSelector(state => state.podcasts.podcastsPosition[item.uid])
 
   const handlePlay = () => {
     if(current && current.id === item.uid){
@@ -44,6 +45,11 @@ function ItemPodcast({ item }) {
   const descriptionNoTags = striptags(item.description)
   const description = Html5Entities.decode(descriptionNoTags).substring(0, 100)
 
+  if(item.uid === 'zCLuxyVDdt5XuTIMnLJF'){
+    console.log(track)
+  }
+
+
   return (
     <Container onPress={handleDetails}>
       <Row>
@@ -70,21 +76,20 @@ function ItemPodcast({ item }) {
           </PlayButton>
         )}
 
-        <Meta>{item.date}  •  32 MIN RESTANTE(S)</Meta>
+        {track && <Meta>{formatDMY(item.date)}  •  {getLastMin(track.duration, track.position)}  </Meta>}
+        {!track && <Meta>{formatDMY(item.date)}  •  NÃO TOCADO </Meta>}
         <RoundButton onClick={() => {}}>
           <Icon name="download" size={20} />
         </RoundButton>
       </Controllers>
-      {
-        podcastsPosition[item.uid] && (
-          <Indicator>
-            <Percentage  width={podcastsPosition[item.uid].position / podcastsPosition[item.uid].duration * 100} />
-          </Indicator>
-        )
-      }
+      {track && (
+        <Indicator>
+          <Percentage width={track.position / track.duration * 100} />
+        </Indicator>
+      )}
 
     </Container>
   )
 }
 
-export default ItemPodcast;
+export default memo(ItemPodcast);

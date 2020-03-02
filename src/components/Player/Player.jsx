@@ -29,7 +29,9 @@ function Player() {
 
   useEffect(() => {
     if(current){
-      dispatch(PodcastsActions.setPodcastPosition(current.id, position, duration))
+      if(position !== 0 && duration !== 0){
+        dispatch(PodcastsActions.setPodcastPosition(current.id, position, duration))
+      }
     }
   }, [position])
 
