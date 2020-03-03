@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 import { getPodcasts } from '~/services/firebase';
 
-
 import { Container, Text, Loading, TextContainer } from './styles';
 import { useNavigation } from "react-navigation-hooks";
 import { PodcastsActions } from "~/store/ducks/podcasts";

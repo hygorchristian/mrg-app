@@ -20,4 +20,20 @@ export default async () => {
     let newPosition = position > 9 ? position - event.interval : 0;
     await TrackPlayer.seekTo(newPosition);
   });
+
+  await TrackPlayer.addEventListener('remote-duck', async event => {
+    const { paused, permanent } = event;
+
+    if (paused) {
+      store.dispatch(PlayerActions.pause());
+    }
+
+    if (permanent) {
+      store.dispatch(PlayerActions.pause());
+    }
+
+    if (!permanent && !paused) {
+      store.dispatch(PlayerActions.play());
+    }
+  });
 };

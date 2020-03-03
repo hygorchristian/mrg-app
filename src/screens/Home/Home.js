@@ -14,8 +14,6 @@ import {
   MenuTitle,
   MenuIcon,
 } from './styles';
-import Drawer from '~/components/Drawer';
-import BottomTabs from '~/components/BottomTabs';
 import Button from '~/components/Button';
 import ItemPodcast from '~/components/ItemPodcast';
 import Player from '~/components/Player';
@@ -24,21 +22,17 @@ import { Modal } from 'react-native-paper';
 import colors from '~/assets/colors';
 import { AppActions } from '~/store/ducks/app';
 import { StatusBar } from 'react-native';
+import EmptyList from '~/components/EmptyList';
 
 function Home() {
   const dispatch = useDispatch();
 
   const podcasts = useSelector(state => state.podcasts.data);
-  const { order } = useSelector(state => state.app);
+  const { order, filter } = useSelector(state => state.app);
   const { playing } = useSelector(state => state.player);
 
-  const [isMenuOpen, setMenuOpen] = useState(false);
   const [filterMenu, setFilterMenu] = useState(false);
   const [filtered, setFiltered] = useState(podcasts);
-
-  const handleMenu = () => {
-    setMenuOpen(!isMenuOpen);
-  };
 
   const handleFilter = type => {
     const newData = [...podcasts];
@@ -56,14 +50,12 @@ function Home() {
       _filtered = newData.filter(item => !item.played);
     }
 
-    if (_filtered.length > 0) {
-      const ordered = lodash.invert(_filtered);
-      setFiltered(ordered);
-    } else {
-      setFiltered(_filtered);
-    }
+    console.log('not_played', _filtered.length);
+
+    setFiltered(_filtered);
 
     setFilterMenu(false);
+    dispatch(AppActions.setFilter(type));
   };
 
   const handleOrder = () => {
@@ -80,9 +72,8 @@ function Home() {
 
   return (
     <Container>
-      <HeaderMenu menuOpen={isMenuOpen} handleMenu={handleMenu} />
+      <HeaderMenu />
       <Content>
-        <Drawer open={isMenuOpen} onClose={() => setMenuOpen(false)} />
         <FilterContainer>
           <FilterLabel>Todos os Episódios</FilterLabel>
           <Button onPress={() => setFilterMenu(true)}>Classificar</Button>
@@ -91,6 +82,7 @@ function Home() {
           data={filtered}
           renderItem={({ item }) => <ItemPodcast item={item} />}
           keyExtractor={item => item.uid}
+          ListEmptyComponent={<EmptyList />}
         />
         <Player />
         {/*<BottomTabs />*/}
@@ -100,13 +92,21 @@ function Home() {
           <MenuTitle>Filtrar</MenuTitle>
           <MenuItem onPress={() => handleFilter('all')}>
             <MenuLabel>Todos os episódios</MenuLabel>
-            <MenuIcon name="check" color={colors.textSecondary} size={24} />
+            {filter === 'all' && (
+              <MenuIcon name="check" color={colors.textSecondary} size={24} />
+            )}
           </MenuItem>
           <MenuItem onPress={() => handleFilter('downloads')}>
             <MenuLabel>Downloads</MenuLabel>
+            {filter === 'downloads' && (
+              <MenuIcon name="check" color={colors.textSecondary} size={24} />
+            )}
           </MenuItem>
           <MenuItem onPress={() => handleFilter('not_played')}>
             <MenuLabel>Não Tocados</MenuLabel>
+            {filter === 'not_played' && (
+              <MenuIcon name="check" color={colors.textSecondary} size={24} />
+            )}
           </MenuItem>
           <MenuTitle>Classificar por</MenuTitle>
           <MenuItem onPress={handleOrder}>

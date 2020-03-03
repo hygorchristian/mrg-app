@@ -1,17 +1,38 @@
+import React from 'react';
+
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 import HomeBottom from './HomeBottom';
-import Home from '~/screens/Home';
-import Downloads from '~/screens/Downloads';
 import Search from '~/screens/Search';
 import { createStackNavigator } from 'react-navigation-stack';
 import PodcastDetails from '~/screens/PodcastDetails';
 import PlayerScreen from '~/screens/PlayerScreen';
 import Splash from '~/screens/Splash';
+import HeaderMenu from '~/components/HeaderMenu';
+import { createDrawerNavigator } from 'react-navigation-drawer';
+import colors from '~/assets/colors';
+import Drawer from '~/components/Drawer';
+
+const DrawerMain = createDrawerNavigator(
+  {
+    HomeBottom: {
+      screen: HomeBottom,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false,
+      },
+    },
+  },
+  {
+    drawerBackgroundColor: colors.paper,
+    drawerType: 'slide',
+    contentComponent: () => <Drawer />,
+  }
+);
 
 const MainStack = createStackNavigator({
-  HomeBottom: {
-    screen: HomeBottom,
+  DrawerMain: {
+    screen: DrawerMain,
     navigationOptions: {
       header: null,
       gesturesEnabled: false,
@@ -52,7 +73,6 @@ export const MainSearchStack = createStackNavigator(
   },
   {
     mode: 'modal',
-    headerMode: 'none',
   }
 );
 
@@ -71,13 +91,6 @@ const Routes = createSwitchNavigator({
       gesturesEnabled: false,
     },
   },
-  // Stack: {
-  //   screen: Stack,
-  //   navigationOptions: {
-  //     header: null,
-  //     gesturesEnabled: false,
-  //   },
-  // },
 });
 
 export default createAppContainer(Routes);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 
 import TabIcon from '~/components/TabIcon';
 
@@ -8,6 +9,10 @@ import BottomTabs from '~/components/BottomTabs';
 import Home from '~/screens/Home';
 import Downloads from '~/screens/Downloads';
 import Search from '~/screens/Search';
+import DownloadTabs from '~/routes/DownloadTabs';
+import Header from '~/components/Header';
+import HeaderMenu from '~/components/HeaderMenu';
+import { Container } from '~/screens/Home/styles';
 
 const HomeIcon = ({ tintColor }) => (
   <TabIcon name="home" tintColor={tintColor} type="material" />
@@ -40,11 +45,10 @@ const HomeBottom = createBottomTabNavigator(
         tabBarOnPress: ({ navigation }) => {
           navigation.navigate('Search');
         },
-        label: 'Busca',
       }),
     },
     Downloads: {
-      screen: Downloads,
+      screen: DownloadTabs,
       navigationOptions: {
         header: null,
         tabBarIcon: DownloadsIcon,

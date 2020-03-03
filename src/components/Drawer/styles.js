@@ -2,20 +2,19 @@ import styled from 'styled-components/native';
 import { Animated } from 'react-native';
 import colors from '~/assets/colors';
 import OpenSans from '~/components/OpenSans';
-import { BOTTOM_SPACE } from '~/utils/dimensions';
+import { BOTTOM_SPACE, SCREEN_HEIGHT, SCREEN_WIDTH } from '~/utils/dimensions';
 
 export const Container = styled(Animated.View)`
-  width: 100%;
-  height: 100%;
+  width: ${SCREEN_WIDTH};
+  height: ${SCREEN_HEIGHT};
   position: absolute;
   top: 0;
-  left: 0;
-  z-index: 100;
+  z-index: 200;
   flex-direction: row;
 `;
 
 export const Content = styled.View`
-  width: 280px;
+  width: 100%;
   height: 100%;
   background-color: ${colors.paper};
   z-index: 10;

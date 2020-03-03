@@ -32,6 +32,7 @@ export function* init() {
 
   TrackPlayer.updateOptions({
     jumpInterval: 10,
+    alwaysPauseOnInterruption: true,
     capabilities: [
       TrackPlayer.CAPABILITY_PLAY,
       TrackPlayer.CAPABILITY_PAUSE,
