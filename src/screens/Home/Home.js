@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import lodash from 'lodash';
 
-import HeaderMenu from '~/components/HeaderMenu';
 import {
   Container,
   Content,
@@ -50,9 +49,8 @@ function Home() {
       _filtered = newData.filter(item => !item.played);
     }
 
-    console.log('not_played', _filtered.length);
-
-    setFiltered(_filtered);
+    const ordered = lodash.orderBy(_filtered, 'number', order);
+    setFiltered(ordered);
 
     setFilterMenu(false);
     dispatch(AppActions.setFilter(type));
@@ -70,9 +68,12 @@ function Home() {
     StatusBar.setBackgroundColor('#000000');
   }, [order]);
 
+  useEffect(() => {
+    handleFilter('all');
+  }, []);
+
   return (
     <Container>
-      <HeaderMenu />
       <Content>
         <FilterContainer>
           <FilterLabel>Todos os Episódios</FilterLabel>
@@ -85,7 +86,6 @@ function Home() {
           ListEmptyComponent={<EmptyList />}
         />
         <Player />
-        {/*<BottomTabs />*/}
       </Content>
       <Modal visible={filterMenu} onDismiss={() => setFilterMenu(false)}>
         <FilterMenu>

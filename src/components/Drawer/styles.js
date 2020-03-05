@@ -21,10 +21,11 @@ export const Content = styled.View`
 `;
 
 export const Image = styled.Image.attrs({
-  resizeMode: 'cover',
+  resizeMode: 'contain',
 })`
   width: 280px;
-  height: 200px;
+  height: 240px;
+  background-color: black;
 `;
 
 export const ItemsMenu = styled.View`

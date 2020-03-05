@@ -27,32 +27,44 @@ const DrawerMain = createDrawerNavigator(
     drawerBackgroundColor: colors.paper,
     drawerType: 'slide',
     contentComponent: () => <Drawer />,
+    cardStyle: {
+      backgroundColor: 'rgba(0,0,0,0)',
+      opacity: 1,
+    },
   }
 );
 
-const MainStack = createStackNavigator({
-  DrawerMain: {
-    screen: DrawerMain,
-    navigationOptions: {
-      header: null,
-      gesturesEnabled: false,
+const MainStack = createStackNavigator(
+  {
+    DrawerMain: {
+      screen: DrawerMain,
+      navigationOptions: {
+        header: () => <HeaderMenu />,
+        gesturesEnabled: false,
+      },
+    },
+    PodcastDetails: {
+      screen: PodcastDetails,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false,
+      },
+    },
+    PlayerScreen: {
+      screen: PlayerScreen,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false,
+      },
     },
   },
-  PodcastDetails: {
-    screen: PodcastDetails,
-    navigationOptions: {
-      header: null,
-      gesturesEnabled: false,
+  {
+    cardStyle: {
+      backgroundColor: 'rgba(0,0,0,0)',
+      opacity: 1,
     },
-  },
-  PlayerScreen: {
-    screen: PlayerScreen,
-    navigationOptions: {
-      header: null,
-      gesturesEnabled: false,
-    },
-  },
-});
+  }
+);
 
 export const MainSearchStack = createStackNavigator(
   {
@@ -73,24 +85,38 @@ export const MainSearchStack = createStackNavigator(
   },
   {
     mode: 'modal',
+    cardStyle: {
+      backgroundColor: 'rgba(0,0,0,0)',
+      opacity: 1,
+    },
   }
 );
 
-const Routes = createSwitchNavigator({
-  Splash: {
-    screen: Splash,
-    navigationOptions: {
-      header: null,
-      gesturesEnabled: false,
+const Routes = createSwitchNavigator(
+  {
+    Splash: {
+      screen: Splash,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false,
+      },
+    },
+    MainSearchStack: {
+      screen: MainSearchStack,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false,
+      },
     },
   },
-  MainSearchStack: {
-    screen: MainSearchStack,
-    navigationOptions: {
-      header: null,
-      gesturesEnabled: false,
+  {
+    cardStyle: {
+      backgroundColor: 'rgba(0,0,0,0)',
+      opacity: 1,
     },
-  },
-});
+  }
+);
 
-export default createAppContainer(Routes);
+const Navigation = createAppContainer(Routes);
+
+export default () => <Navigation theme="dark" />;

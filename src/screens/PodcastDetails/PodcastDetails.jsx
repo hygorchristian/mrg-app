@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-import { Container, Icon, Image, ImageGradient, Title, Info, Number, Percentage, Meta, Row, RoundButton, Description, Label, Content, Actions, PlayButton, Progress, HeaderButton, HeaderContainer, HeaderExtraSpace, HeaderGradient} from './styles';
+import { Container, Icon, Image, ImageGradient, Title,Description1, Info, Number, Percentage, Meta, Row, RoundButton, Description, DescriptionContainer, Label, Content, Actions, PlayButton, Progress, HeaderButton, HeaderContainer, HeaderExtraSpace, HeaderGradient} from './styles';
 import Player from "~/components/Player";
-import BottomTabs from "~/components/BottomTabs";
 import { useNavigation } from "react-navigation-hooks";
 import { getPodcast } from '~/services/firebase'
-import striptags from "striptags";
 import { formatDMY, getLastMin } from "~/utils/time";
-import { Controllers, Indicator } from "~/components/ItemPodcast/styles";
 import { useDispatch, useSelector } from "react-redux";
-import colors from "~/assets/colors";
 import { PlayerActions } from "~/store/ducks/player";
-const Html5Entities = require('html-entities').Html5Entities;
 
 
 function Header() {
@@ -120,9 +115,10 @@ function PodcastDetails() {
               </RoundButton>
             </Actions>
           </Row>
-          <Description>
-            {podcast.description}
-          </Description>
+          <DescriptionContainer>
+            <Description html={podcast.description} />
+            {/*<Description1>{podcast.description}</Description1>*/}
+          </DescriptionContainer>
         </Info>
       </Content>
       <Player />

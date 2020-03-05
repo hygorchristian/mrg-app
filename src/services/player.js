@@ -29,7 +29,7 @@ export default async () => {
     }
 
     if (permanent) {
-      store.dispatch(PlayerActions.pause());
+      store.dispatch(PlayerActions.stop());
     }
 
     if (!permanent && !paused) {

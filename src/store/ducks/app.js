@@ -15,7 +15,7 @@ export const AppActions = Creators;
 // Initial State
 
 export const INITIAL_STATE = Immutable({
-  order: 'asc',
+  order: 'desc',
   filter: 'all',
   menuOpen: false,
 });

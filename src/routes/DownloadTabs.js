@@ -12,7 +12,7 @@ const DownloadTabs = createMaterialTopTabNavigator(
     DownloadList: {
       screen: DownloadList,
       navigationOptions: {
-        tabBarLabel: 'Downloads',
+        tabBarLabel: 'Lista',
       },
     },
     DownloadManager: {

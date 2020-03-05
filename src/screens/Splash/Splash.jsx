@@ -2,15 +2,18 @@ import React, { useEffect } from 'react';
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 import { getPodcasts } from '~/services/firebase';
 
-import { Container, Text, Loading, TextContainer } from './styles';
+import { Container, Text, Loading, Logo, LogoContainer, LoadingContainer } from './styles';
 import { useNavigation } from "react-navigation-hooks";
 import { PodcastsActions } from "~/store/ducks/podcasts";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StatusBar } from "react-native";
+
+import mrg from '~/assets/img/mrg.png'
 
 function Splash() {
   const navigation = useNavigation()
   const dispatch = useDispatch()
+  const podcasts = useSelector(state => state.podcasts.data)
 
   const checkPermissions = async () => {
     const actions = {
@@ -31,28 +34,36 @@ function Splash() {
   }
 
   const fetchPodcasts = () => {
-    getPodcasts(podcasts => {
-      dispatch(PodcastsActions.setPodcasts(podcasts))
-    });
+    if(podcasts.length > 0){
+      setTimeout(() => {
+        navigation.navigate('MainStack')
+      }, 1000)
+    }else{
+      getPodcasts(podcasts => {
+        dispatch(PodcastsActions.setPodcasts(podcasts))
+        setTimeout(() => {
+          navigation.navigate('MainStack')
+        }, 1000)
+      });
+    }
   }
 
   useEffect(() => {
-
     StatusBar.setBarStyle('light-content');
     StatusBar.setBackgroundColor('#000000');
     checkPermissions()
     fetchPodcasts()
-    setTimeout(() => {
-      navigation.navigate('MainStack')
-    }, 1000)
   }, [])
 
   return (
     <Container>
-      <TextContainer>
-        <Text>MRG</Text>
-      </TextContainer>
-      <Loading />
+      <LogoContainer>
+        <Logo source={mrg} />
+      </LogoContainer>
+      <Text>Equipando Robôs Gigantes...</Text>
+      <LoadingContainer>
+        <Loading />
+      </LoadingContainer>
     </Container>
   )
 }

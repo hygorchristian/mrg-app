@@ -1,6 +1,5 @@
 import React from 'react';
 import { Appbar } from 'react-native-paper';
-import { AppActions } from "~/store/ducks/app";
 import { useNavigation } from "react-navigation-hooks";
 
 function HeaderMenu({  ...props }) {

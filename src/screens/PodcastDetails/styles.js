@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { Platform } from 'react-native';
+import { Platform, Linking } from 'react-native';
 import OpenSans from '~/components/OpenSans';
 import MDIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
@@ -7,6 +7,10 @@ import colors from '~/assets/colors';
 import LinearGradient from 'react-native-linear-gradient';
 import { SCREEN_WIDTH } from '~/utils/dimensions';
 import Montserrat from '~/components/Montserrat';
+import HTML from 'react-native-render-html';
+import { REGULAR } from '~/components/Montserrat/fonts';
+import TagA from '~/components/TagA';
+import React from 'react';
 
 export const Container = styled.View`
   height: 100%;
@@ -119,12 +123,75 @@ export const Icon = styled(MDIcon)`
   color: ${colors.textPrimary};
 `;
 
-export const Description = styled(OpenSans)`
+export const ATag = styled(Montserrat)`
+  color: ${colors.primary};
+  font-size: 24px;
+  line-height: 20px;
+`;
+
+export const DescriptionContainer = styled.View`
+  padding: 30px;
+  margin-bottom: 60px;
+`;
+
+export const Bullet = styled.View`
+  height: 8px;
+  width: 8px;
+  border-radius: 4px;
+  background-color: ${colors.inactive};
+  margin-right: 8px;
+  margin-top: 6px;
+`;
+
+export const Description = styled(HTML).attrs({
+  renderers: {
+    a: (htmlAttribs, children) => (
+      <ATag onPress={() => Linking.openURL(htmlAttribs.href)}>{children}</ATag>
+    ),
+  },
+  listsPrefixesRenderers: {
+    ul: () => <Bullet />,
+    ol: () => <Bullet />,
+  },
+  baseFontStyle: {
+    color: colors.textSecondary,
+    fontSize: 16,
+    lineHeight: 20,
+    fontFamily: REGULAR,
+  },
+  tagsStyles: {
+    p: {
+      color: colors.textSecondary,
+      fontSize: 16,
+      lineHeight: 20,
+      marginBottom: 24,
+      fontFamily: REGULAR,
+    },
+    li: {
+      color: colors.textSecondary,
+      fontSize: 16,
+      lineHeight: 20,
+      marginBottom: 12,
+      fontFamily: REGULAR,
+    },
+    a: {
+      color: colors.primary,
+      fontSize: 16,
+      lineHeight: 20,
+    },
+  },
+})`
   font-size: 16px;
   color: ${colors.textSecondary};
   line-height: 20px;
   margin-top: 24px;
-  padding-horizontal: 30px;
+`;
+
+export const Description1 = styled(OpenSans)`
+  font-size: 16px;
+  color: ${colors.textSecondary};
+  line-height: 20px;
+  margin-top: 24px;
 `;
 
 /* HEADER */
